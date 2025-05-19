@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试报告</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src=" https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/5.1.2/echarts.min.js"></script>
+    <!--    页面样式-->
+    <style type="text/css">
+        /*标题样式*/
+        .title {
+            width: auto;
+            height: 60px;
+            text-align: center;
+            font: bolder 38px/60px "Microsoft YaHei UI";
+        }
+
+        /*汇总信息样式*/
+        .summary {
+            width: 90%;
+            position: absolute;
+            top: 120px;
+            margin-left: 5%;
+
+        }
+
+        .text-left {
+            font: bolder 20px/30px "Microsoft YaHei UI";
+        }
+
+        .left {
+            width: 50%;
+            float: left;
+
+        }
+
+        .right {
+            width: 50%;
+            float: right;
+
+        }
+
+        .desc {
+            float: left;
+            width: 100%;
+        }
+
+        .list-group-item span {
+            font: normal 16px/38px "Microsoft YaHei UI";
+            padding: 30px;
+
+        }
+
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: .4rem 1.25rem;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, .125);
+        }
+
+        /* 执行信息样式   */
+        .test_info {
+            width: 90%;
+            position: absolute;
+            top: 900px;
+            margin-left: 5%;
+
+            color: #28a745 !important;
+        }
+
+        .table td, th {
+            border: solid 2px rgba(9, 122, 51, 0.11) !important;
+            padding: 0;
+            line-height: 40px;
+            text-align: center;
+
+        }
+
+
+        select {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            height: 2em;
+            width: 8em;
+            margin-left: 2em;
+        }
+
+        option {
+            text-align: center;
+            height: 36px;
+            font: none 18px/36px "Microsoft YaHei UI";
+            color: #28a745 !important;
+        }
+
+        .test_log {
+            background: rgba(163, 171, 189, 0.15);
+            width: 100%;
+            height: 50px;
+            border-top: none;
+            border-bottom: none;
+            display: none;
+            text-align: left;
+        }
+
+        .test_log td {
+            text-align: left;
+            height: 30px;
+            margin: 0;
+            padding-left: 3em;
+            padding-right:3em;
+            font: none 18px/24px "Microsoft YaHei UI";
+            color: #9e141a;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -o-pre-wrap;
+            word-wrap: break-word;
+            line-height: 22px;
+            font-size: 14px
+        }
+
+        /*    测试图表显示*/
+        .char {
+            width: 90%;
+            position: absolute;
+            top: 450px;
+            margin-left: 5%;
+            color: #28a745 !important;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!--报告标题-->
+<div class="title text-success">
+    <div class="shadow-lg p-3 mb-5 bg-white rounded">许愿狐接口测试报告</div>
+</div>
+
+<!--汇总信息-->
+<div class="summary">
+    <p class="text-left text-success">测试结果汇总</p>
+    <div class="left">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">测试人员</button>
+                <span class="text-dark">zxh</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">开始时间</button>
+                <span class="text-dark">2025-05-19 17:29:19</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">执行时间</button>
+                <span class="text-dark">28.80 S</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">用例总数</button>
+                <span class="text-dark">6</span>
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="right">
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">成功用例</button>
+                <span class="text-success">6</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-warning">失败用例</button>
+                <span class="text-warning">0</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-danger">错误用例</button>
+                <span class="text-danger">0</span>
+            </li>
+            <li class="list-group-item">
+                <button type="button" class="btn btn-secondary">跳过用例</button>
+                <span class="text-secondary">0</span>
+            </li>
+        </ul>
+    </div>
+    <div class="desc">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <button type="button" class="btn btn-success">描述信息</button>
+                <span class="text-secondary">包含登录和智能商单等操作</span>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<!--测试图表-->
+<div class="char">
+    <p class="text-left text-success">图表展示</p>
+    <div id="char2" style="width: 49%;height: 400px;float: left"></div>
+    <div id="char" style="width: 49%;height: 400px ;float: left"></div>
+</div>
+
+<!--详细信息-->
+<div class="test_info">
+
+    <p class="text-left text-success">详细信息</p>
+    <div class="table_data">
+
+        <table class="table">
+            <thead class="bg-success text-light">
+            <tr>
+                <th scope="col" style="width: 5%;padding: 0">编号</th>
+                <th scope="col" style="width: 20%;padding: 0">
+                    <span>测试类</span>
+                    <select id="testClass">
+                        <option>所有</option>
+                        
+                            <option>TestGetAccountInfo</option>
+                        
+                            <option>TestSmartBusinessOrder</option>
+                        
+                            <option>TestLogin</option>
+                        
+                    </select>
+
+                </th>
+
+                <th scope="col" style="width: 15%;padding: 0">测试方法</th>
+                <th scope="col" style="width: 20%;padding: 0">用例描述</th>
+                <th scope="col" style="width: 15%;padding: 0">执行时间</th>
+                <th scope="col" style="width: 20%;padding: 0">
+
+                    <span>执行结果</span>
+                    <select id="testResult">
+                        <option>所有</option>
+                        <option class="text-success">成功</option>
+                        <option class="text-warning">失败</option>
+                        <option class="text-danger">错误</option>
+                        <option class="text-info">跳过</option>
+                    </select>
+
+                </th>
+                <th scope="col" style="width: 10%;padding: 0">详细信息</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+                <tr>
+                    <td>1</td>
+                    <td class="TestLogin">TestLogin</td>
+                    <td>test_001_login_newaccount</td>
+                    <td>登录操作</td>
+                    <td>0.713s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>====== 请求信息 ======
+请求 URL: http://192.168.150.252:8080/auth/v2/login
+请求方法: POST
+======================
+test_001_login_newaccout 测试通过
+已将 data 数据写入配置文件 D:\pycharm\hssapi_test\data/env.ini
+test_001_login_newaccount (testcases.hsslogin.TestLogin)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>2</td>
+                    <td class="TestSmartBusinessOrder">TestSmartBusinessOrder</td>
+                    <td>test_001_get_dialog_history</td>
+                    <td>智能商单-获取历史商单</td>
+                    <td>0.069s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>====== 请求信息 ======
+请求 URL: http://192.168.150.252:8080/app/ai/dialog/history/info
+请求方法: GET
+请求头 Headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoyMjIiLCJyblN0ciI6IkZBdHE4aTgzRUl2M09hTzlnbHFBbUdJYkUxVHdiNXZiIiwidXNlcklkIjoyMjJ9.xJQ6jApca3PyViQ0JWjoUK1b0pRblwCM3dGZhvCBZqY', 'Version': '1.5.4', 'X-Encrypt-Key': '6vOzlFazUzrkNPvsCv86+vzs64JYbU5y+BryhXrXTwOgyuCSmI3IJQdlkuXOoogbBEKKkf6U8kq9MwjJgjOmf5c10hGXPUycotbFPMa/vyY1vmkewMaoiEsKQ0vfe+VcKnKnJSOqWxo7Ki6vfUV3ynT+zaLbuK1vE34IN57olbXkhmsCX4eSaRDw9YxgKlzaPulx0Z6n0ivQ+kp2FUAnQ5fnZ342q77lLmZs8HUyNlNePj+8TbRk+UIq2xjBJ+sNtZX9AVaClwLBOD9NteEk455lu6zv2zPiCxyp8zGbLVSRvaxTpTdMruc2fNZaYJKQaSCHfLybDrcbMEyRUgV+S8U8HTBtTle01cEfZamnu2eLvsGcfWTkTAAVAXiQB5yoXqOOO/Eu+t+46qnGouEFicoQI/iQF1sw58yLPjl/N3w2ANfRZLxNclA5DyGVO4qvGCK4jt7IAdsIGsqmPYOje/TCpknNYtS0/cMDu7K0U5P58iZSECFSVz5qPydYtYTHiWvEipcVpi3ccr/SJ4vDm1IRDD6BKIbg4XySTPmlBNtvBvhhnIGc8gjKTUyM026rtKlAYYGINs8FhOkHK9XUtA=='}
+======================
+响应内容: {"code":200,"msg":"操作成功","data":{"todayList":[{"id":712,"dialogName":"206人 场地搭建","userId":222,"dialogExt":"TASK","createTime":"2025-05-19 17:14:40","updateTime":"2025-05-19 17:14:40"}],"yesterDayList":[],"weekList":[],"monthList":[],"otherList":[{"id":711,"dialogName":"15间 仓储管理","userId":222,"dialogExt":"TASK","createTime":"2025-05-15 12:07:40","updateTime":"2025-05-15 12:07:40"},{"id":710,"dialogName":"242间 设备租赁","userId":222,"dialogExt":"TASK","createTime":"2025-05-14 17:52:02","updateTime":"2025-05-14 17:52:02"},{"id":695,"dialogName":"500人酒店食材供应","userId":222,"dialogExt":"TASK","createTime":"2025-05-14 12:31:31","updateTime":"2025-05-14 12:31:31"},{"id":686,"dialogName":"50人小区配送服务","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 17:06:12","updateTime":"2025-04-25 17:06:12"},{"id":685,"dialogName":"500人食堂配送服务","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 16:29:14","updateTime":"2025-04-25 16:29:14"},{"id":684,"dialogName":"100人医院承包经营","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 16:25:19","updateTime":"2025-04-25 16:25:19"},{"id":683,"dialogName":"200人酒店冷链配送","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 16:23:12","updateTime":"2025-04-25 16:23:12"},{"id":682,"dialogName":"200人医院食材供应","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 16:21:03","updateTime":"2025-04-25 16:21:03"},{"id":681,"dialogName":"1000人学校原料供应","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 16:19:37","updateTime":"2025-04-25 16:19:37"},{"id":680,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 15:02:14","updateTime":"2025-04-25 15:02:14"},{"id":679,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 14:55:58","updateTime":"2025-04-25 14:55:58"},{"id":677,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 14:42:52","updateTime":"2025-04-25 14:42:52"},{"id":676,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 14:38:37","updateTime":"2025-04-25 14:38:37"},{"id":675,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 14:36:25","updateTime":"2025-04-25 14:36:25"},{"id":674,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 12:16:09","updateTime":"2025-04-25 12:16:09"},{"id":673,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 12:07:55","updateTime":"2025-04-25 12:07:55"},{"id":672,"dialogName":"500人餐厅","userId":222,"dialogExt":"TASK","createTime":"2025-04-25 11:30:26","updateTime":"2025-04-25 11:30:26"},{"id":669,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-04-24 16:07:33","updateTime":"2025-04-24 16:07:33"},{"id":664,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-04-24 14:33:24","updateTime":"2025-04-24 14:33:24"},{"id":653,"dialogName":"茶杯","userId":222,"dialogExt":"TASK","createTime":"2025-04-22 15:31:17","updateTime":"2025-04-22 15:31:17"},{"id":652,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-04-22 12:29:52","updateTime":"2025-04-22 12:29:52"},{"id":651,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-04-22 12:29:21","updateTime":"2025-04-22 12:29:21"},{"id":628,"dialogName":"输出旅游攻略","userId":222,"dialogExt":"TASK","createTime":"2025-04-15 14:15:38","updateTime":"2025-04-15 14:15:38"},{"id":626,"dialogName":"我想要旅游攻略","userId":222,"dialogExt":"TASK","createTime":"2025-04-15 12:16:40","updateTime":"2025-04-15 12:16:40"},{"id":625,"dialogName":"我需要采购苹果","userId":222,"dialogExt":"TASK","createTime":"2025-04-15 12:14:24","updateTime":"2025-04-15 12:14:24"},{"id":624,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-04-15 11:51:42","updateTime":"2025-04-15 11:51:42"},{"id":612,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-04-12 16:56:59","updateTime":"2025-04-12 16:56:59"},{"id":540,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 10:16:15","updateTime":"2025-03-28 10:16:15"},{"id":539,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 10:16:11","updateTime":"2025-03-28 10:16:11"},{"id":538,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 10:15:55","updateTime":"2025-03-28 10:15:55"},{"id":537,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 10:12:43","updateTime":"2025-03-28 10:12:43"},{"id":536,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 10:03:10","updateTime":"2025-03-28 10:03:10"},{"id":535,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 09:59:41","updateTime":"2025-03-28 09:59:41"},{"id":534,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 09:58:29","updateTime":"2025-03-28 09:58:29"},{"id":533,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 09:45:13","updateTime":"2025-03-28 09:45:13"},{"id":532,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 09:38:26","updateTime":"2025-03-28 09:38:26"},{"id":531,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-28 09:36:03","updateTime":"2025-03-28 09:36:03"},{"id":431,"dialogName":"汽车","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:24:06","updateTime":"2025-03-27 16:24:06"},{"id":430,"dialogName":"衣服","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:22:07","updateTime":"2025-03-27 16:22:07"},{"id":429,"dialogName":"我想采购衣服","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:17:49","updateTime":"2025-03-27 16:17:49"},{"id":428,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:17:03","updateTime":"2025-03-27 16:17:03"},{"id":427,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:15:21","updateTime":"2025-03-27 16:15:21"},{"id":426,"dialogName":"我是一名HR,想寻找一名长期IOS工程师","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:13:57","updateTime":"2025-03-27 16:13:57"},{"id":425,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 16:01:25","updateTime":"2025-03-27 16:01:25"},{"id":422,"dialogName":"火机","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 15:51:50","updateTime":"2025-03-27 15:51:50"},{"id":415,"dialogName":"球鞋","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 15:08:05","updateTime":"2025-03-27 15:08:05"},{"id":399,"dialogName":"牛奶","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 14:51:56","updateTime":"2025-03-27 14:51:56"},{"id":387,"dialogName":"奶粉","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 12:38:38","updateTime":"2025-03-27 12:38:38"},{"id":385,"dialogName":"牛肉","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 12:23:22","updateTime":"2025-03-27 12:23:22"},{"id":384,"dialogName":"我想要水芹","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 11:50:39","updateTime":"2025-03-27 11:50:39"},{"id":383,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 11:49:37","updateTime":"2025-03-27 11:49:37"},{"id":380,"dialogName":"我要玩具供应","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 11:32:19","updateTime":"2025-03-27 11:32:19"},{"id":376,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 11:06:11","updateTime":"2025-03-27 11:06:11"},{"id":375,"dialogName":"鱼竿","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 11:00:17","updateTime":"2025-03-27 11:00:17"},{"id":372,"dialogName":"我想采购1000只杯子","userId":222,"dialogExt":"TASK","createTime":"2025-03-27 10:56:50","updateTime":"2025-03-27 10:56:50"}]}}
+test_001_get_dialog_history (testcases.smart_business_order.TestSmartBusinessOrder)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>3</td>
+                    <td class="TestSmartBusinessOrder">TestSmartBusinessOrder</td>
+                    <td>test_002_custom_dialog_task</td>
+                    <td>智能商单-生成对话</td>
+                    <td>27.6s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>====== 请求信息 ======
+请求 URL: http://192.168.150.252:8080/app/ai/dialog/task
+请求方法: GET
+请求头 Headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoyMjIiLCJyblN0ciI6IkZBdHE4aTgzRUl2M09hTzlnbHFBbUdJYkUxVHdiNXZiIiwidXNlcklkIjoyMjJ9.xJQ6jApca3PyViQ0JWjoUK1b0pRblwCM3dGZhvCBZqY', 'Version': '1.5.4', 'X-Encrypt-Key': '6vOzlFazUzrkNPvsCv86+vzs64JYbU5y+BryhXrXTwOgyuCSmI3IJQdlkuXOoogbBEKKkf6U8kq9MwjJgjOmf5c10hGXPUycotbFPMa/vyY1vmkewMaoiEsKQ0vfe+VcKnKnJSOqWxo7Ki6vfUV3ynT+zaLbuK1vE34IN57olbXkhmsCX4eSaRDw9YxgKlzaPulx0Z6n0ivQ+kp2FUAnQ5fnZ342q77lLmZs8HUyNlNePj+8TbRk+UIq2xjBJ+sNtZX9AVaClwLBOD9NteEk455lu6zv2zPiCxyp8zGbLVSRvaxTpTdMruc2fNZaYJKQaSCHfLybDrcbMEyRUgV+S1/4im+pGay/wsfWmDCi4eRoEhjFk+40YtRGWrLJg2UQ6jBvPZ7qnj8uyWfxrnzj79L3jGu+uteLVZ2+nmF5gni/VqNP64cs2uJQY2i8t5brddAdEDpva1BUQgX/QX0x7E6ffzfqAXzlYe3YLtkWhW5pK83bbSWVb1rVquxTuaBDnaQIr0oYo/IAM2UmBrMcydh/95dnSNeBAPOwkNIdQcieB+nsoHRmTN/eW6jFjcZ4kG5PURWDkMKa6b4+tR53Ew=='}
+======================
+已将 data 数据写入配置文件 D:\pycharm\hssapi_test\data/env.ini
+test_002_custom_dialog_task (testcases.smart_business_order.TestSmartBusinessOrder)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>4</td>
+                    <td class="TestSmartBusinessOrder">TestSmartBusinessOrder</td>
+                    <td>test_003_get_analysis_result</td>
+                    <td>智能商单-点击下一步</td>
+                    <td>0.128s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>====== 请求信息 ======
+请求 URL: http://192.168.150.252:8080/app/ai/dialog/analysis//1110
+请求方法: GET
+请求头 Headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoyMjIiLCJyblN0ciI6IkZBdHE4aTgzRUl2M09hTzlnbHFBbUdJYkUxVHdiNXZiIiwidXNlcklkIjoyMjJ9.xJQ6jApca3PyViQ0JWjoUK1b0pRblwCM3dGZhvCBZqY', 'Version': '1.5.4', 'X-Encrypt-Key': '6vOzlFazUzrkNPvsCv86+vzs64JYbU5y+BryhXrXTwOgyuCSmI3IJQdlkuXOoogbBEKKkf6U8kq9MwjJgjOmf5c10hGXPUycotbFPMa/vyY1vmkewMaoiEsKQ0vfe+VcKnKnJSOqWxo7Ki6vfUV3ynT+zaLbuK1vE34IN57olbXkhmsCX4eSaRDw9YxgKlzaPulx0Z6n0ivQ+kp2FUAnQ5fnZ342q77lLmZs8HUyNlNePj+8TbRk+UIq2xjBJ+sNtZX9AVaClwLBOD9NteEk455lu6zv2zPiCxyp8zGbLVSRvaxTpTdMruc2fNZaYJKQaSCHfLybDrcbMEyRUgV+S2ulbRG8KsqqUD6HpHwFnLTMfG4HBH9+KOkSFMbOnVQRcu/syxbSvd+AdzbCyYia2JfCRe/8qdIa2IWQQZZwFWFFIAzbSVP+wkQ+mqTpcC8bPlXMbgqtojs86tKYC9hwsg3jmxbCwjxpxJkEmHT/TOcekLMJg+3PbErd9IGdjsyyx0eUrI6l7Syj87mWoyujShHb7nVPIHEg70yYtdqWW8yXwIaxP2L00S7jn1g4PHtxd0jsR/FC+Z682pnua8OxVg=='}
+======================
+响应内容: {"code":200,"msg":"操作成功","data":{"busyTaskVo":{"title":"寻求高效完成222个场地搭建服务","content":"1. 需由专业团队提供场地搭建方案并施工  \n2. 要求提供搭建前后对比图作为验收依据  \n3. 需包含灯光/音响/主题装饰基础框架搭建  \n4. 所有搭建工程验收合格后结算费用  \n5. 接受分批次按季度完成交付","categoryId":253,"categoryName":"商务服务","categoryType":null,"categoryTypeName":"","supplyType":null,"supplyTypeName":"","pid":263,"industryType":269,"industryName":"婚庆服务","type":1294,"typeName":"通用","potentialDemand":["寻求专业团队设计婚庆场地布置方案","寻求高效完成婚庆设备租赁服务","寻求定制化婚庆场地改造方案"]}}}
+已将 data 数据写入配置文件 D:\pycharm\hssapi_test\data/env.ini
+已成功写入 env.ini
+生成的商单标题为：寻求高效完成222个场地搭建服务
+test_003_get_analysis_result (testcases.smart_business_order.TestSmartBusinessOrder)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>5</td>
+                    <td class="TestSmartBusinessOrder">TestSmartBusinessOrder</td>
+                    <td>test_004_submit_task</td>
+                    <td>智能商单-生成商单</td>
+                    <td>0.158s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>====== 请求信息 ======
+请求 URL: http://192.168.150.252:8080/busy-order/app/busy/task
+请求方法: POST
+请求头 Headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpblR5cGUiOiJsb2dpbiIsImxvZ2luSWQiOiJhcHBfdXNlcjoyMjIiLCJyblN0ciI6IkZBdHE4aTgzRUl2M09hTzlnbHFBbUdJYkUxVHdiNXZiIiwidXNlcklkIjoyMjJ9.xJQ6jApca3PyViQ0JWjoUK1b0pRblwCM3dGZhvCBZqY', 'Version': '1.5.4', 'X-Encrypt-Key': '6vOzlFazUzrkNPvsCv86+vzs64JYbU5y+BryhXrXTwOgyuCSmI3IJQdlkuXOoogbBEKKkf6U8kq9MwjJgjOmf5c10hGXPUycotbFPMa/vyY1vmkewMaoiEsKQ0vfe+VcKnKnJSOqWxo7Ki6vfUV3ynT+zaLbuK1vE34IN57olbXkhmsCX4eSaRDw9YxgKlzaPulx0Z6n0ivQ+kp2FUAnQ5fnZ342q77lLmZs8HUyNlNePj+8TbRk+UIq2xjBJ+sNtZX9AVaClwLBOD9NteEk455lu6zv2zPiCxyp8zGbLVSRvaxTpTdMruc2fNZaYJKQaSCHfLybDrcbMEyRUgV+S7gTqjDvP0aIfRwOYOxs5+vDesneISE7Gn26dUPBKROFM8tGXR4jL3XfY4MZNKup2EamHiIA5aUFk4xIH4O5/CTQbUnxKHnnajEk8eJ92+0OfdTKDiKl44JhuamxtjcMSRjpe3sdY3FzP4m6mmcAY1nRC1lANAYg7f9vnI34BHeE1Qy0sczx77/KHPjQI/rAaIknw9FTyyTSUhXt3fFkK8JEKqObR47JmWTglNUArTaxW/RYUaMvLOvB54h8QoyAQg=='}
+======================
+响应内容: {"code":200,"msg":"操作成功","data":4704}
+已将 data 数据写入配置文件 D:\pycharm\hssapi_test\data/env.ini
+test_004_submit_task (testcases.smart_business_order.TestSmartBusinessOrder)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>6</td>
+                    <td class="TestGetAccountInfo">TestGetAccountInfo</td>
+                    <td>test_001_get_account_info</td>
+                    <td>获取当前账号信息</td>
+                    <td>0.055s</td>
+                    
+                        <td class="text-success">成功</td>
+                    
+                    <td>
+                        <button type="button" class="btn btn-success btn_info">查看详情</button>
+                    </td>
+                </tr>
+
+                <tr class="test_log">
+
+                    <td colspan="7" class="small text-muted" style=" word-wrap:break-word; word-break:break-all">
+                        
+
+                            <pre>响应内容: {"code":200,"msg":"操作成功","data":{"createTime":"2024-08-22 11:58:47","updateTime":"2025-05-15 15:28:53","id":125,"userId":222,"nickname":null,"accountType":"personal","merchantId":null,"merchantName":"柯钢","identityType":"1","legalName":"柯钢","identityNoEncrypt":"421***********2831","identityNo":null,"identityBeginDate":"20220114","identityEndDate":"20420114","identityValidityType":"0","contactPhone":"13297941815","certPhotoA":"2025051515285118379","certPhotoB":"2025051515285184539","contactName":"","contactEmail":"","licensePhoto":null,"licenseCode":null,"licenseBeginDate":null,"licenseEndDate":null,"licenseValidityType":"0","licenseProvinceCode":null,"licenseCityCode":null,"licenseAreaCode":null,"licenseAddress":null,"certPhotoFront":"http://111.175.90.254:9000/sohuglobal/2025/05/15/7754c5c31d5647d1ad585876140131f2_0x0.jpg","certPhotoBack":"http://111.175.90.254:9000/sohuglobal/2025/05/15/b092fc4bdde544a4a52cbb9b38a93d52_0x0.jpg","qualificationPhoto":null,"state":"Refuse","rejectReason":"当前手机号码不可使用，请更换手机号进行验证","licenseProvinceName":null,"licenseCityName":null,"licenseAreaName":null,"licenseType":null,"hasMerchant":false,"avatar":null,"identityTypeName":"身份证","roleKey":null,"auditTime":"2025-05-15 15:28:53","bailState":"WaitApprove","bailSource":null,"merId":null,"isUpgrage":0,"bindPhone":null,"existBank":null}}
+test_001_get_account_info (testcases.get_account.TestGetAccountInfo)执行——>【通过】
+</pre>
+                        
+                        
+                    </td>
+                </tr>
+            
+
+            </tbody>
+        </table>
+    </div>
+
+    <div style="height: 200px"></div>
+</div>
+
+
+<script>
+    var tbodyTr = $('tbody tr');
+    var testResult = $("#testResult");
+    var testClass = $("#testClass");
+    <!--    用例执行详细信息显示切换-->
+    $(".btn_info").click(function () {
+        $(this).parent().parent().next().toggle();
+
+    });
+    // 当选择用例类之后触发
+    testClass.change(function () {
+        var cls = $(this).val();
+        var res = testResult.val();
+        elementDisplay(cls, res);
+        sort()
+    });
+    testResult.change(function () {
+        var res = $(this).val();
+        var cls = testClass.val();
+        elementDisplay(cls, res);
+        sort()
+    });
+
+    function elementDisplay(cls, res) {
+        // 用例数据的显示
+        if (cls === "所有") {
+            if (res === "所有") {
+                tbodyTr.has('button').show();
+            } else if (res === '成功') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-success').show()
+
+            } else if (res === '失败') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-warning').show()
+
+            } else if (res === '错误') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-danger').show()
+
+            } else if (res === '跳过') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.text-info').show()
+            }
+        } else {
+            if (res === "所有") {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').show()
+            } else if (res === '成功') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-success').show()
+            } else if (res === '失败') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-warning').show()
+            } else if (res === '错误') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-danger').show()
+            } else if (res === '跳过') {
+                tbodyTr.hide();
+                tbodyTr.has('button').has('.' + cls + '').has('.text-info').show()
+            }
+        }
+    }
+
+    function sort() {
+        //重新排列显示序号
+        // 选择所有可以见的tr
+        var visibleTr = tbodyTr.filter(":visible");
+
+        visibleTr.each(function (index, element) {
+            element.firstElementChild.innerHTML = index + 1;
+
+        })
+
+    }
+
+
+</script>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('char'));
+    var myChart2 = echarts.init(document.getElementById('char2'));
+    // 指定图表的配置项和数据
+    option = {
+        color: ['#00a10a', '#ddb518', 'rgba(204,46,41,0.73)', '#85898c'],
+        tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 10,
+            data: ['通过', '失败', '错误', '跳过']
+        },
+        series: [
+            {
+                name: '测试结果',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '30',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: [
+                    {value: 6, name: '通过'},
+                    {value: 0, name: '失败'},
+                    {value: 0, name: '错误'},
+                    {value: 0, name: '跳过'}
+                ]
+            }
+        ]
+    };
+    option2 = {
+        tooltip: {
+            formatter: '{a} <br/>{b} : {c}%'
+        },
+        toolbox: {
+            feature: {
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        series: [
+            {
+                name: '测试结果',
+                type: 'gauge',
+                detail: {formatter: '100.00%'},
+                data: [{value: '100.00', name: '用例通过率'}],
+                axisLine: {
+                    lineStyle: {
+                        color: [
+                            [0.2, '#c20000'],
+                            [0.8, '#ddb518'],
+                            [1, '#00a10a']]
+                    }
+                }
+            }
+        ]
+    };
+
+
+    myChart2.setOption(option2);
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+
+</body>
+</html>
